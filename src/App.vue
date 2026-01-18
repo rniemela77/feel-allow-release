@@ -1,76 +1,148 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { computed, ref } from 'vue'
+import feel from './data/feel.json'
+
+const selectedAnswerId = ref(null)
+
+const question = computed(() => feel.question)
+const answers = computed(() => feel.answers ?? [])
+
+const selectedAnswer = computed(() => {
+  if (!selectedAnswerId.value) return null
+  return answers.value.find((a) => a.id === selectedAnswerId.value) ?? null
+})
+
+function selectAnswer(answerId) {
+  selectedAnswerId.value = answerId
+}
+
+function reset() {
+  selectedAnswerId.value = null
+}
 </script>
 
 <template>
-  <div class="layout">
-    <header class="header">
-      <div class="brand">feel-allow-release</div>
-      <nav class="nav">
-        <RouterLink to="/" class="link" active-class="active">Home</RouterLink>
-        <RouterLink to="/about" class="link" active-class="active">About</RouterLink>
-      </nav>
-    </header>
+  <main class="page">
+    <section class="card" v-if="!selectedAnswer">
+      <div class="brand">feel · allow · release</div>
+      <h1 class="title">{{ question.text }}</h1>
+      <p v-if="question.instruction" class="instruction">
+        {{ question.instruction }}
+      </p>
 
-    <main class="main">
-      <RouterView />
-    </main>
-  </div>
+      <div class="answers" role="list">
+        <button
+          v-for="a in answers"
+          :key="a.id"
+          type="button"
+          class="answerBtn"
+          @click="selectAnswer(a.id)"
+        >
+          {{ a.label }}
+        </button>
+      </div>
+    </section>
+
+    <section class="card" v-else>
+      <div class="brand">feel · allow · release</div>
+      <h1 class="title">{{ selectedAnswer.label }}</h1>
+
+      <ol class="tips">
+        <li v-for="(tip, idx) in (selectedAnswer.tips ?? []).slice(0, 3)" :key="idx" class="tip">
+          {{ tip }}
+        </li>
+      </ol>
+
+      <button type="button" class="resetBtn" @click="reset()">Start over</button>
+    </section>
+  </main>
 </template>
 
 <style scoped>
-.layout {
+.page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
+  padding: 28px 20px;
 }
 
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 20px;
-  background: rgba(15, 23, 42, 0.9);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+.card {
+  width: min(720px, 100%);
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.6);
 }
 
 .brand {
-  font-weight: 700;
-  letter-spacing: 0.2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(226, 232, 240, 0.7);
 }
 
-.nav {
-  display: flex;
+.title {
+  margin-top: 10px;
+}
+
+.instruction {
+  margin-top: 10px;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.answers {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.link {
+@media (max-width: 520px) {
+  .answers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.answerBtn {
+  cursor: pointer;
+  text-align: left;
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(148, 163, 184, 0.12);
+  color: rgba(226, 232, 240, 0.95);
+}
+
+.answerBtn:hover {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.answerBtn:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 2px;
+}
+
+.tips {
+  margin: 16px 0 0 0;
+  padding-left: 18px;
+}
+
+.tip {
+  margin-top: 10px;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.resetBtn {
+  margin-top: 18px;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(148, 163, 184, 0.1);
   color: rgba(226, 232, 240, 0.85);
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 10px;
 }
 
-.link:hover {
-  background: rgba(148, 163, 184, 0.14);
-}
-
-.active {
-  background: rgba(59, 130, 246, 0.25);
-  color: rgba(226, 232, 240, 1);
-}
-
-.main {
-  flex: 1;
-  width: min(960px, 100%);
-  margin: 0 auto;
-  padding: 28px 20px;
+.resetBtn:hover {
+  background: rgba(148, 163, 184, 0.16);
 }
 </style>
-
-

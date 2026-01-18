@@ -1,0 +1,73 @@
+{
+    "question": {
+      "id": "feel_check_in",
+      "text": "What are you feeling right now?",
+      "instruction": "Choose the option that feels closest. You don’t have to be precise."
+    },
+    "answers": [
+      {
+        "id": "shame",
+        "label": "Shame",
+        "tips": [
+          "Notice the feeling without judging it.",
+          "Allow the sensation to be present without trying to change it.",
+          "See if it softens when you stop resisting it."
+        ]
+      },
+      {
+        "id": "guilt",
+        "label": "Guilt",
+        "tips": [
+          "Let the feeling exist without explaining it.",
+          "Allow it to be there without pushing it away or acting on it.",
+          "Notice whether it releases on its own when you stop holding it."
+        ]
+      },
+      {
+        "id": "fear",
+        "label": "Fear",
+        "tips": [
+          "Notice the fear as a sensation, not a story.",
+          "Allow it to be present without trying to feel safe or calm.",
+          "Observe if it changes when you no longer resist it."
+        ]
+      },
+      {
+        "id": "anger",
+        "label": "Anger",
+        "tips": [
+          "Let the anger be there without suppressing or expressing it.",
+          "Allow the raw energy of it without blaming anyone.",
+          "See what happens when you stop trying to control it."
+        ]
+      },
+      {
+        "id": "sadness",
+        "label": "Sadness",
+        "tips": [
+          "Notice the heaviness or ache without labeling it as a problem.",
+          "Allow the feeling to exist without trying to cheer yourself up.",
+          "Let it move at its own pace without interference."
+        ]
+      },
+      {
+        "id": "numbness",
+        "label": "Numbness / Nothing",
+        "tips": [
+          "Notice the absence of sensation without forcing anything.",
+          "Allow the numbness to be there just as it is.",
+          "Sometimes allowing nothing is still allowing."
+        ]
+      },
+      {
+        "id": "other",
+        "label": "Something Else",
+        "tips": [
+          "Notice whatever sensation is most obvious right now.",
+          "Allow it without needing to name it clearly.",
+          "Let go of the need to get this right."
+        ]
+      }
+    ]
+  }
+  
